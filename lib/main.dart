@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile_simkas/screen/home.dart';
-import 'package:mobile_simkas/screen/login_success.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,7 +21,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFFFFFFFF)),
           useMaterial3: true,
           textTheme: GoogleFonts.poppinsTextTheme()),
-      home: const LoginSuccess(),
+      home: const Home(),
       debugShowCheckedModeBanner: false,
     );
   }
