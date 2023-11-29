@@ -1,11 +1,20 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  TextEditingController inputEmail = new TextEditingController();
+  TextEditingController inputPass = new TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,8 +76,10 @@ class LoginPage extends StatelessWidget {
           ),
           Container(
             padding: EdgeInsets.only(right: 30, left: 30),
-            child:
-                inputFile(label: 'Email Address', icon: Icons.email_outlined),
+            child: inputFile(
+                label: 'Email Address',
+                icon: Icons.email_outlined,
+                controller: inputEmail),
           ),
           SizedBox(
             height: 20,
@@ -76,7 +87,10 @@ class LoginPage extends StatelessWidget {
           Container(
             padding: EdgeInsets.only(right: 30, left: 30),
             child: inputFile(
-                label: 'Password', obscureText: true, icon: Icons.key),
+                label: 'Password',
+                obscureText: true,
+                icon: Icons.key,
+                controller: inputPass),
           ),
           SizedBox(
             height: 32,
@@ -84,7 +98,21 @@ class LoginPage extends StatelessWidget {
           Container(
             padding: EdgeInsets.only(right: 30, left: 30),
             child: MaterialButton(
-              onPressed: () {},
+              onPressed: () async {
+                String emailAddress = inputEmail.text;
+                String password = inputPass.text;
+                try {
+                  final credential = await FirebaseAuth.instance
+                      .signInWithEmailAndPassword(
+                          email: emailAddress, password: password);
+                } on FirebaseAuthException catch (e) {
+                  if (e.code == 'user-not-found') {
+                    print('No user found for that email.');
+                  } else if (e.code == 'wrong-password') {
+                    print('Wrong password provided for that user.');
+                  }
+                }
+              },
               minWidth: double.infinity,
               height: 50,
               color: Color(0xFF0C4E6D),
@@ -110,8 +138,9 @@ class LoginPage extends StatelessWidget {
   }
 }
 
-Widget inputFile({label, obscureText = false, icon}) {
+Widget inputFile({label, obscureText = false, icon, controller}) {
   return TextField(
+    controller: controller,
     obscureText: obscureText,
     decoration: InputDecoration(
         border: OutlineInputBorder(

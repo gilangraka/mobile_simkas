@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "518469229366",
+    "project_id": "simkas-mobile",
+    "storage_bucket": "simkas-mobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:518469229366:android:c286543a00cb8910fff197",
+        "android_client_info": {
+          "package_name": "com.example.mobile_simkas"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfMasvFEazsFfpB8Y3ku60SbWp23zaT3E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
