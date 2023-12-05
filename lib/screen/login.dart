@@ -1,9 +1,10 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_import, use_build_context_synchronously, unused_local_variable
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mobile_simkas/screen/login_success.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -105,11 +106,23 @@ class _LoginPageState extends State<LoginPage> {
                   final credential = await FirebaseAuth.instance
                       .signInWithEmailAndPassword(
                           email: emailAddress, password: password);
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LoginSuccess()));
                 } on FirebaseAuthException catch (e) {
-                  if (e.code == 'user-not-found') {
-                    print('No user found for that email.');
-                  } else if (e.code == 'wrong-password') {
-                    print('Wrong password provided for that user.');
+                  if (e.code == 'user-not-found' ||
+                      e.code == 'wrong-password') {
+                    showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        content: const Text('ID atau Password Salah!'),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'OK'),
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      ),
+                    );
                   }
                 }
               },
