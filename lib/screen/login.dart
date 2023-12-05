@@ -110,21 +110,24 @@ class _LoginPageState extends State<LoginPage> {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => LoginSuccess()));
                 } on FirebaseAuthException catch (e) {
-                  if (e.code == 'user-not-found' ||
-                      e.code == 'wrong-password') {
-                    showDialog<String>(
-                      context: context,
-                      builder: (BuildContext context) => AlertDialog(
-                        content: const Text('ID atau Password Salah!'),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () => Navigator.pop(context, 'OK'),
-                            child: const Text('OK'),
-                          ),
-                        ],
-                      ),
-                    );
-                  }
+                  showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              content: Text("ID atau Password Salah!"),
+              actions: [
+                TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+              ],
+            );
+          });
                 }
               },
               minWidth: double.infinity,
