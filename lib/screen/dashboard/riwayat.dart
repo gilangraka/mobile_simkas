@@ -1,14 +1,14 @@
-// ignore_for_file: unused_import
+// ignore_for_file: unused_import, library_private_types_in_public_api, use_key_in_widget_constructors, prefer_const_constructors
 
 import 'package:mobile_simkas/screen/dashboard/dashboard.dart';
 import 'package:flutter/material.dart';
 
-class KonfirmasiScreen extends StatefulWidget {
+class Riwayat extends StatefulWidget {
   @override
-  _KonfirmasiScreenState createState() => _KonfirmasiScreenState();
+  _RiwayatState createState() => _RiwayatState();
 }
 
-class _KonfirmasiScreenState extends State<KonfirmasiScreen> {
+class _RiwayatState extends State<Riwayat> {
   List<Transaksi> transaksiList = [
     Transaksi(DateTime.now(), 100.0),
     Transaksi(DateTime.now().subtract(Duration(days: 1)), 50.0),

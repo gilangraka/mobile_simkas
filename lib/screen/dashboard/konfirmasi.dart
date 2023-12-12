@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, prefer_const_constructors
+// ignore_for_file: library_private_types_in_public_api, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, prefer_const_constructors, sort_child_properties_last
 
 import 'package:flutter/material.dart';
 import 'package:mobile_simkas/screen/dashboard/dashboard.dart';
@@ -17,16 +17,16 @@ class Transaction {
   });
 }
 
-class TransactionCard extends StatefulWidget {
+class KonfirmasiKas extends StatefulWidget {
   final Transaction transaction;
 
-  TransactionCard({required this.transaction});
+  KonfirmasiKas({required this.transaction});
 
   @override
-  _TransactionCardState createState() => _TransactionCardState();
+  _KonfirmasiKasState createState() => _KonfirmasiKasState();
 }
 
-class _TransactionCardState extends State<TransactionCard> {
+class _KonfirmasiKasState extends State<KonfirmasiKas> {
   bool isConfirmationEnabled = true;
 
   void _onKonfirmasiPressed() {
@@ -46,11 +46,10 @@ class _TransactionCardState extends State<TransactionCard> {
           content: Column(
             children: [
               Image.network(
-                  'https://s0.bukalapak.com/img/0657559704/large/Screenshot_2018_11_22_20_41_14_33.png'), // Replace with your image URL
-              SizedBox(height: 16.0),
+                  'https://s0.bukalapak.com/img/0657559704/large/Screenshot_2018_11_22_20_41_14_33.png'),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.of(context).pop(); // Close the dialog
+                  Navigator.of(context).pop(); // Close the dialogF
                 },
                 child: Text('Close'),
               ),
@@ -66,6 +65,7 @@ class _TransactionCardState extends State<TransactionCard> {
     return Card(
       margin: EdgeInsets.all(5.0),
       child: ListTile(
+        tileColor: Colors.white,
         title: Text('Date: ${widget.transaction.date.toString()}'),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,11 +79,23 @@ class _TransactionCardState extends State<TransactionCard> {
                 ElevatedButton(
                   onPressed:
                       isConfirmationEnabled ? _onKonfirmasiPressed : null,
-                  child: Text('Konfirmasi'),
+                  child: Text(
+                    'Konfirmasi',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFF003F5F),
+                  ),
                 ),
                 ElevatedButton(
                   onPressed: _onBuktiTransferPressed,
-                  child: Text('Bukti Transfer'),
+                  child: Text(
+                    'Bukti Transfer',
+                    style: TextStyle(color: Color(0xFF003F5F)),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                  ),
                 ),
               ],
             ),
@@ -116,7 +128,8 @@ class TransactionHistoryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Transaction History'),
+        title: Text('Konfirmasi Kas Kelas'),
+        backgroundColor: Color(0xFFF1F5FF),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -132,7 +145,7 @@ class TransactionHistoryPage extends StatelessWidget {
       body: ListView.builder(
         itemCount: transactions.length,
         itemBuilder: (context, index) {
-          return TransactionCard(transaction: transactions[index]);
+          return KonfirmasiKas(transaction: transactions[index]);
         },
       ),
     );

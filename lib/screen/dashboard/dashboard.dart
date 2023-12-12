@@ -1,7 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'package:mobile_simkas/screen/dashboard/riwayat.dart';
 import 'package:mobile_simkas/screen/dashboard/konfirmasi.dart';
+import 'package:mobile_simkas/screen/dashboard/menu_profile/profile_screen.dart';
+import 'package:mobile_simkas/screen/dashboard/riwayat.dart';
 import 'package:flutter/material.dart';
 
 class Dashboard extends StatefulWidget {
@@ -96,6 +97,10 @@ class _DashboardState extends State<Dashboard> {
               title: Text('Riwayat Kas'),
               onTap: () {
                 Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Riwayat()),
+                );
               },
             ),
             ListTile(
@@ -103,6 +108,10 @@ class _DashboardState extends State<Dashboard> {
               title: Text('Profile'),
               onTap: () {
                 Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProfileScreen()),
+                );
               },
             ),
             Divider(),
@@ -111,6 +120,12 @@ class _DashboardState extends State<Dashboard> {
               title: Text('Konfirmasi Kas'),
               onTap: () {
                 Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          HistoryScreen(transactions: transactions)),
+                );
               },
             ),
           ],
@@ -178,12 +193,12 @@ class _DashboardState extends State<Dashboard> {
             } else if (index == 1) {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => KonfirmasiScreen()),
+                MaterialPageRoute(builder: (context) => Riwayat()),
               );
             } else if (index == 2) {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => KonfirmasiScreen()),
+                MaterialPageRoute(builder: (context) => Riwayat()),
               );
             }
           });
@@ -270,8 +285,7 @@ class _DashboardState extends State<Dashboard> {
                     if (buttonText == 'Tampilkan Lebih Banyak') {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => KonfirmasiScreen()),
+                        MaterialPageRoute(builder: (context) => Riwayat()),
                       );
                     }
                     // You can add more conditions if needed
