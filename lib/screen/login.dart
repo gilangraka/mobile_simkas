@@ -4,7 +4,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mobile_simkas/main.dart';
 import 'package:mobile_simkas/screen/login_success.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -107,8 +109,16 @@ class _LoginPageState extends State<LoginPage> {
                   final credential = await FirebaseAuth.instance
                       .signInWithEmailAndPassword(
                           email: emailAddress, password: password);
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => LoginSuccess()));
+                  var uid = credential.user?.uid;
+                  print(uid);
+
+                  DatabaseReference ref =
+                      FirebaseDatabase.instance.ref().child("mahasiswa/$uid");
+                  DatabaseEvent event = await ref.once();
+                  print(event.snapshot.value);
+
+                  // Navigator.push(context,
+                  //     MaterialPageRoute(builder: (context) => LoginSuccess()));
                 } on FirebaseAuthException catch (e) {
                   showDialog(
                       context: context,

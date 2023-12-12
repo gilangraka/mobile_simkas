@@ -73,6 +73,9 @@ class _KonfirmasiKasState extends State<KonfirmasiKas> {
             Text('User: ${widget.transaction.userName}'),
             Text('Kategori: ${widget.transaction.category}'),
             Text('Total: ${widget.transaction.amount.toString()}'),
+            SizedBox(
+              height: 10,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

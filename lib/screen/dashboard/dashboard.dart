@@ -131,54 +131,58 @@ class _DashboardState extends State<Dashboard> {
           ],
         ),
       ),
-      body: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.only(top: 25),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: CircleAvatar(
-                    radius: 22,
+      body: Container(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.only(top: 25),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: CircleAvatar(
-                      radius: 20,
-                      backgroundImage: AssetImage('assets/pp.jpg'),
+                      radius: 22,
+                      child: CircleAvatar(
+                        radius: 20,
+                        backgroundImage: AssetImage('assets/pp.jpg'),
+                      ),
                     ),
                   ),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Hello,",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Hello,",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
+                        ),
                       ),
-                    ),
-                    Text(
-                      "Gilang~!",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 15,
+                      Text(
+                        "Gilang~!",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 15,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-          SizedBox(height: 20),
-          buildContainer("Tagihan Kas Bulanan", "Nominal: Rp. 25,000", 'Bayar'),
-          SizedBox(height: 20),
-          buildContainer(
-              "Data Uang Masuk/Keluar", "", 'Tampilkan Lebih Banyak'),
-          SizedBox(height: 20),
-          buildContainer("Konfirmasi Pembayaran Kas", "", 'Lihat Konfirmasi'),
-        ],
+            SizedBox(height: 20),
+            buildContainer(
+                "Tagihan Kas Bulanan", "Nominal: Rp. 25,000", 'Bayar'),
+            SizedBox(height: 40),
+            buildContainer(
+                "Data Uang Masuk/Keluar", "", 'Tampilkan Lebih Banyak'),
+            SizedBox(height: 20),
+            buildContainer("Konfirmasi Pembayaran Kas", "", 'Lihat Konfirmasi'),
+          ],
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
@@ -226,6 +230,7 @@ class _DashboardState extends State<Dashboard> {
 
   Widget buildContainer(String title, String subTitle, String buttonText) {
     return Container(
+      width: double.infinity,
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Color(0xFFF1F5FF),
@@ -237,8 +242,8 @@ class _DashboardState extends State<Dashboard> {
           Text(
             title,
             style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              fontSize: 15,
             ),
           ),
           SizedBox(height: 10),

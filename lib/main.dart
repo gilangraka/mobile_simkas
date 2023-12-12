@@ -1,17 +1,20 @@
-// ignore_for_file: prefer_const_constructors, unused_import
+// ignore_for_file: prefer_const_constructors, unused_import, unused_local_variable
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile_simkas/screen/dashboard/dashboard.dart';
 import 'package:mobile_simkas/screen/home.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:mobile_simkas/screen/login.dart';
 import 'firebase_options.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  FirebaseDatabase database = FirebaseDatabase.instance;
   runApp(const MyApp());
 }
 
@@ -28,7 +31,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFFFFFFFF)),
           useMaterial3: true,
           textTheme: GoogleFonts.poppinsTextTheme()),
-      home: const Dashboard(),
+      home: const LoginPage(),
       debugShowCheckedModeBanner: false,
     );
   }

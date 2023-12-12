@@ -49,6 +49,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '518469229366',
     projectId: 'simkas-mobile',
     authDomain: 'simkas-mobile.firebaseapp.com',
+    databaseURL: 'https://simkas-mobile-default-rtdb.firebaseio.com',
     storageBucket: 'simkas-mobile.appspot.com',
     measurementId: 'G-LB053HD253',
   );
@@ -58,6 +59,7 @@ class DefaultFirebaseOptions {
     appId: '1:518469229366:android:c286543a00cb8910fff197',
     messagingSenderId: '518469229366',
     projectId: 'simkas-mobile',
+    databaseURL: 'https://simkas-mobile-default-rtdb.firebaseio.com',
     storageBucket: 'simkas-mobile.appspot.com',
   );
 
@@ -66,6 +68,7 @@ class DefaultFirebaseOptions {
     appId: '1:518469229366:ios:31357fe5ef82adc0fff197',
     messagingSenderId: '518469229366',
     projectId: 'simkas-mobile',
+    databaseURL: 'https://simkas-mobile-default-rtdb.firebaseio.com',
     storageBucket: 'simkas-mobile.appspot.com',
     iosBundleId: 'com.example.mobileSimkas',
   );
@@ -75,6 +78,7 @@ class DefaultFirebaseOptions {
     appId: '1:518469229366:ios:4fa0a9f095533072fff197',
     messagingSenderId: '518469229366',
     projectId: 'simkas-mobile',
+    databaseURL: 'https://simkas-mobile-default-rtdb.firebaseio.com',
     storageBucket: 'simkas-mobile.appspot.com',
     iosBundleId: 'com.example.mobileSimkas.RunnerTests',
   );

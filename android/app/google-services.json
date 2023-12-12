@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "518469229366",
+    "firebase_url": "https://simkas-mobile-default-rtdb.firebaseio.com",
     "project_id": "simkas-mobile",
     "storage_bucket": "simkas-mobile.appspot.com"
   },
