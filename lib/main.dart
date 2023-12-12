@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mobile_simkas/screen/dashboard/dashboard.dart';
 import 'package:mobile_simkas/screen/home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFFFFFFFF)),
           useMaterial3: true,
           textTheme: GoogleFonts.poppinsTextTheme()),
-      home: const Home(),
+      home: const Dashboard(),
       debugShowCheckedModeBanner: false,
     );
   }

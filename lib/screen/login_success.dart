@@ -3,7 +3,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:mobile_simkas/screen/dashboard.dart';
+import 'package:mobile_simkas/screen/dashboard/dashboard.dart';
 import 'package:mobile_simkas/screen/widget.dart';
 import 'package:lottie/lottie.dart';
 

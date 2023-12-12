@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:mobile_simkas/screen/dashboard/riwayat.dart';
+import 'package:mobile_simkas/screen/dashboard/konfirmasi.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_simkas/screen/konfirmasi_kas.dart';
-import 'package:mobile_simkas/screen/riwayat_kas.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -13,6 +13,21 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   int _currentIndex = 0;
+
+  List<Transaction> transactions = [
+    Transaction(
+      date: DateTime.now(),
+      userName: '',
+      category: '',
+      amount: 25000,
+    ),
+    Transaction(
+      date: DateTime.now(),
+      userName: 'lalalall',
+      category: '',
+      amount: 25000,
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +66,6 @@ class _DashboardState extends State<Dashboard> {
                       backgroundImage: AssetImage('assets/pp.jpg'),
                     ),
                   ),
-                  SizedBox(height: 10),
                   Text(
                     "Hello,",
                     style: TextStyle(
@@ -157,19 +171,19 @@ class _DashboardState extends State<Dashboard> {
           setState(() {
             _currentIndex = index;
             if (index == 0) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Dashboard()),
-              );
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(builder: (context) => HomeScreen()),
+              // );
             } else if (index == 1) {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => RiwayatKas()),
+                MaterialPageRoute(builder: (context) => KonfirmasiScreen()),
               );
             } else if (index == 2) {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => KonfirmasiKas()),
+                MaterialPageRoute(builder: (context) => KonfirmasiScreen()),
               );
             }
           });
@@ -226,11 +240,7 @@ class _DashboardState extends State<Dashboard> {
                     ElevatedButton(
                       onPressed: () {
                         if (buttonText == 'Bayar') {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => KonfirmasiKas()),
-                          );
+                          _onBayarPressed();
                         } else {
                           // Handle other button clicks if needed
                         }
@@ -253,13 +263,15 @@ class _DashboardState extends State<Dashboard> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => KonfirmasiKas()),
+                            builder: (context) =>
+                                HistoryScreen(transactions: transactions)),
                       );
                     }
                     if (buttonText == 'Tampilkan Lebih Banyak') {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => RiwayatKas()),
+                        MaterialPageRoute(
+                            builder: (context) => KonfirmasiScreen()),
                       );
                     }
                     // You can add more conditions if needed
@@ -276,6 +288,68 @@ class _DashboardState extends State<Dashboard> {
                 ),
         ],
       ),
+    );
+  }
+
+  void _showPaymentDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Pilih Metode Pembayaran'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context); // Tutup dialog
+                  _onCashPayment(); // Pilih metode pembayaran Cash
+                },
+                child: Text('Cash'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context); // Tutup dialog
+                  _onTransferPayment(); // Pilih metode pembayaran Transfer
+                },
+                child: Text('Transfer'),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _onBayarPressed() {
+    _showPaymentDialog(); // Tampilkan dialog pembayaran
+  }
+
+  void _onCashPayment() {
+    // Logika untuk pembayaran dengan metode Cash
+  }
+
+  void _onTransferPayment() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Upload Pembayaran'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text('Silakan upload bukti transfer'),
+              ElevatedButton(
+                onPressed: () {
+                  // Logika untuk mengupload pembayaran
+                  Navigator.pop(context); // Tutup dialog
+                },
+                child: Text('Upload'),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
