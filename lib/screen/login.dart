@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_import, use_build_context_synchronously, unused_local_variable, unused_catch_clause
-
+import 'dart:async';
+import 'dart:convert';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile_simkas/main.dart';
 import 'package:mobile_simkas/screen/login_success.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -16,6 +18,45 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  String uid = "";
+  final _myBox = Hive.box('mybox');
+
+  // writeData
+  void writeData(uid) {
+    _myBox.put("uid", uid);
+  }
+
+  void validasiLogin(emailAddress, password) async {
+    try {
+      final credential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: emailAddress, password: password);
+      uid = credential.user!.uid;
+      writeData(uid);
+
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => LoginSuccess()));
+    } on FirebaseAuthException catch (e) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              content: Text("ID atau Password Salah!"),
+              actions: [
+                TextButton(
+                  style: TextButton.styleFrom(
+                    textStyle: Theme.of(context).textTheme.labelLarge,
+                  ),
+                  child: const Text('OK'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          });
+    }
+  }
+
   TextEditingController inputEmail = new TextEditingController();
   TextEditingController inputPass = new TextEditingController();
   @override
@@ -105,41 +146,14 @@ class _LoginPageState extends State<LoginPage> {
               onPressed: () async {
                 String emailAddress = inputEmail.text;
                 String password = inputPass.text;
-                try {
-                  final credential = await FirebaseAuth.instance
-                      .signInWithEmailAndPassword(
-                          email: emailAddress, password: password);
-                  var uid = credential.user?.uid;
-                  print(uid);
-
-                  DatabaseReference ref =
-                      FirebaseDatabase.instance.ref().child("mahasiswa/$uid");
-                  DatabaseEvent event = await ref.once();
-                  print(event.snapshot.value);
-
-                  // Navigator.push(context,
-                  //     MaterialPageRoute(builder: (context) => LoginSuccess()));
-                } on FirebaseAuthException catch (e) {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          content: Text("ID atau Password Salah!"),
-                          actions: [
-                            TextButton(
-                              style: TextButton.styleFrom(
-                                textStyle:
-                                    Theme.of(context).textTheme.labelLarge,
-                              ),
-                              child: const Text('OK'),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                          ],
-                        );
-                      });
-                }
+                // DatabaseReference ref =
+                //     FirebaseDatabase.instance.ref().child("mahasiswa/$uid");
+                // DatabaseEvent event = await ref.once();
+                // Map<String, dynamic> dataUser =
+                //     event.snapshot.value as Map<String, dynamic>;
+                // print(dataUser);
+                // var dataUser = event.snapshot.value;
+                validasiLogin(emailAddress, password);
               },
               minWidth: double.infinity,
               height: 50,

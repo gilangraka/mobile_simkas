@@ -1,9 +1,12 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:firebase_database/firebase_database.dart';
 import 'package:mobile_simkas/screen/dashboard/konfirmasi.dart';
 import 'package:mobile_simkas/screen/dashboard/menu_profile/profile_screen.dart';
 import 'package:mobile_simkas/screen/dashboard/riwayat.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -14,6 +17,33 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   int _currentIndex = 0;
+  final _myBox = Hive.box('mybox');
+
+  void readData() {
+    var box = _myBox.get("uid").toString();
+    print(box);
+  }
+
+  String getID() {
+    var uid = _myBox.get("uid").toString();
+    return uid;
+  }
+
+  void getData() async {
+    // DatabaseReference ref =
+    //     FirebaseDatabase.instance.ref().child("mahasiswa/$uid");
+    // DatabaseEvent event = await ref.once();
+    // Map<String, dynamic> dataUser =
+    //     event.snapshot.value as Map<String, dynamic>;
+    // print(dataUser);
+    // var dataUser = event.snapshot.value;
+    DatabaseReference ref =
+        FirebaseDatabase.instance.ref().child("mahasiswa/${getID()}");
+    DatabaseEvent event = await ref.once();
+    Map<String, dynamic> dataUser =
+        event.snapshot.value as Map<String, dynamic>;
+    print(dataUser);
+  }
 
   List<Transaction> transactions = [
     Transaction(
