@@ -24,17 +24,27 @@ class _DashboardState extends State<Dashboard> {
     return uid;
   }
 
-  void getData(data) async {
+  String _nama = "";
+  bool _status_bayar = true;
+  String _role = "";
+
+  Future<void> getData() async {
     DatabaseReference ref =
         FirebaseDatabase.instance.ref().child("mahasiswa/${getID()}");
     DatabaseEvent event = await ref.once();
-    Map dataUser =
-        event.snapshot.value as Map;
-    var nama = dataUser['data'];
-    return nama;
+    Map dataUser = event.snapshot.value as Map;
+    setState(() {
+      _nama = dataUser['nama'].toString();
+      bool status_bayar = dataUser['status_pembayaran'];
+      int role = dataUser['role'];
+    });
   }
 
-  var nama = "Gilang";
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +91,7 @@ class _DashboardState extends State<Dashboard> {
                     ),
                   ),
                   Text(
-                    nama,
+                    _nama,
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w700,
@@ -167,7 +177,7 @@ class _DashboardState extends State<Dashboard> {
                         ),
                       ),
                       Text(
-                        nama,
+                        _nama,
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.w700,
