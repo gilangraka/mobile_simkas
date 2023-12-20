@@ -19,46 +19,22 @@ class _DashboardState extends State<Dashboard> {
   int _currentIndex = 0;
   final _myBox = Hive.box('mybox');
 
-  void readData() {
-    var box = _myBox.get("uid").toString();
-    print(box);
-  }
-
   String getID() {
     var uid = _myBox.get("uid").toString();
     return uid;
   }
 
-  void getData() async {
-    // DatabaseReference ref =
-    //     FirebaseDatabase.instance.ref().child("mahasiswa/$uid");
-    // DatabaseEvent event = await ref.once();
-    // Map<String, dynamic> dataUser =
-    //     event.snapshot.value as Map<String, dynamic>;
-    // print(dataUser);
-    // var dataUser = event.snapshot.value;
+  void getData(data) async {
     DatabaseReference ref =
         FirebaseDatabase.instance.ref().child("mahasiswa/${getID()}");
     DatabaseEvent event = await ref.once();
-    Map<String, dynamic> dataUser =
-        event.snapshot.value as Map<String, dynamic>;
-    print(dataUser);
+    Map dataUser =
+        event.snapshot.value as Map;
+    var nama = dataUser['data'];
+    return nama;
   }
 
-  List<Transaction> transactions = [
-    Transaction(
-      date: DateTime.now(),
-      userName: '',
-      category: '',
-      amount: 25000,
-    ),
-    Transaction(
-      date: DateTime.now(),
-      userName: 'lalalall',
-      category: '',
-      amount: 25000,
-    ),
-  ];
+  var nama = "Gilang";
 
   @override
   Widget build(BuildContext context) {
@@ -94,18 +70,18 @@ class _DashboardState extends State<Dashboard> {
                     backgroundColor: Colors.white,
                     child: CircleAvatar(
                       radius: 35,
-                      backgroundImage: AssetImage('assets/pp.jpg'),
+                      backgroundImage: AssetImage('images/pp.jpg'),
                     ),
                   ),
                   Text(
-                    "Hello,",
+                    "Hello",
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Colors.white,
                     ),
                   ),
                   Text(
-                    "Gilang~!",
+                    nama,
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w700,
@@ -150,12 +126,12 @@ class _DashboardState extends State<Dashboard> {
               title: Text('Konfirmasi Kas'),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          HistoryScreen(transactions: transactions)),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //       builder: (context) =>
+                //           HistoryScreen(transactions: transactions)),
+                // );
               },
             ),
           ],
@@ -176,7 +152,7 @@ class _DashboardState extends State<Dashboard> {
                       radius: 22,
                       child: CircleAvatar(
                         radius: 20,
-                        backgroundImage: AssetImage('assets/pp.jpg'),
+                        backgroundImage: AssetImage('images/pp.jpg'),
                       ),
                     ),
                   ),
@@ -191,7 +167,7 @@ class _DashboardState extends State<Dashboard> {
                         ),
                       ),
                       Text(
-                        "Gilang~!",
+                        nama,
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.w700,
@@ -310,12 +286,12 @@ class _DashboardState extends State<Dashboard> {
               : ElevatedButton(
                   onPressed: () {
                     if (buttonText == 'Lihat Konfirmasi') {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                HistoryScreen(transactions: transactions)),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) =>
+                      //           HistoryScreen(transactions: transactions)),
+                      // );
                     }
                     if (buttonText == 'Tampilkan Lebih Banyak') {
                       Navigator.push(
